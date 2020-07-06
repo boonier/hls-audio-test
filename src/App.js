@@ -29,7 +29,6 @@ function App() {
       if (hlsNode) {
         hlsNode.destroy();
       }
-      hlsNode.attachMedia(audioNode.current);
     } else {
       document.addEventListener('touchstart', () => {
         audioNode.current.loop = true;
@@ -59,11 +58,11 @@ function App() {
   useEffect(() => {
     if (selectedSrc.length > 0 && started) {
       if (Hls.isSupported()) {
-        hlsNode.on(Hls.Events.MEDIA_ATTACHED, function () {
-          console.log('video and hls.js are now bound together !');
-        });
         hlsNode.loadSource(selectedSrc);
-        audioNode.current.play();
+        hlsNode.attachMedia(audioNode.current);
+        hlsNode.on(Hls.Events.MANIFEST_PARSED, function () {
+          audioNode.current.play();
+        });
       } else {
         audioNode.current.src = selectedSrc;
         audioNode.current.play();
