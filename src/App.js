@@ -17,8 +17,8 @@ function App() {
   const [selectedSrc, setSelectedSrc] = useState('');
   const [started, setStarted] = useState(false);
   const [playIndex, setPlayIndex] = useState(0);
-  // const [audioNode] = useState(new Audio(files[0]));
-  const audioNode = useRef(null);
+  const [audioNode] = useState(new Audio(files[0]));
+  // const audioNode = useRef(null);
   // const [hlsNode] = useState(new Hls());
   const hlsNode = new Hls({
     enableWorker: false,
@@ -31,27 +31,25 @@ function App() {
       }
     } else {
       document.addEventListener('touchstart', () => {
-        audioNode.current.loop = true;
-        audioNode.current.play();
+        audioNode.loop = true;
+        audioNode.play();
       });
     }
   }, []);
 
   useEffect(() => {
     if (started) {
-      audioNode.current.addEventListener('playing', () =>
-        console.log('playing'),
-      );
-      audioNode.current.addEventListener('ended', () => loadNextTrack());
+      audioNode.addEventListener('playing', () => console.log('playing'));
+      audioNode.addEventListener('ended', () => loadNextTrack());
     }
     return () => {
-      audioNode.current.addEventListener('playing', () => {});
-      audioNode.current.removeEventListener('ended', () => loadNextTrack());
+      audioNode.addEventListener('playing', () => {});
+      audioNode.removeEventListener('ended', () => loadNextTrack());
     };
   }, [started]);
 
   useEffect(() => {
-    audioNode.current.loop = false;
+    audioNode.loop = false;
     setSelectedSrc(`${files[playIndex]}`);
   }, [playIndex]);
 
@@ -59,13 +57,13 @@ function App() {
     if (selectedSrc.length > 0 && started) {
       if (Hls.isSupported()) {
         hlsNode.loadSource(selectedSrc);
-        hlsNode.attachMedia(audioNode.current);
+        hlsNode.attachMedia(audioNode);
         hlsNode.on(Hls.Events.MANIFEST_PARSED, function () {
-          audioNode.current.play();
+          audioNode.play();
         });
       } else {
-        audioNode.current.src = selectedSrc;
-        audioNode.current.play();
+        audioNode.src = selectedSrc;
+        audioNode.play();
       }
     }
   }, [selectedSrc]);
@@ -94,7 +92,7 @@ function App() {
       ) : (
         <button onClick={() => setStarted(true)}>START</button>
       )}
-      <audio ref={audioNode} />
+      {/* <audio ref={audioNode} /> */}
     </div>
   );
 }
