@@ -70,7 +70,7 @@ function App() {
   }, [selectedSrc]);
 
   const getNextIndex = (prevIdx) =>
-    prevIdx < files.length - 1 ? prevIdx + 1 : 1;
+    prevIdx < files.length - 1 ? prevIdx + 1 : 1; // offset from beginning of files[] by 1
 
   const loadNextTrack = () => setPlayIndex((prevIdx) => getNextIndex(prevIdx));
 
