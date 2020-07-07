@@ -3,7 +3,7 @@ import Hls from 'hls.js';
 import './App.css';
 
 const files = [
-  'http://dev.sjm-create.co.uk/bf/audio/silence.mp3',
+  'https://staging.bleedingfingersmusic.com/assets/audio/test/silence.mp3',
   'https://staging.bleedingfingersmusic.com/assets/audio/test/track-01/hls.m3u8',
   'https://staging.bleedingfingersmusic.com/assets/audio/test/track-02/hls.m3u8',
 ];
