@@ -4,13 +4,8 @@ import './App.css';
 
 const files = [
   'http://dev.sjm-create.co.uk/bf/audio/silence.mp3',
-  'http://dev.sjm-create.co.uk/bf/audio/track-01/hls.m3u8',
-  'http://dev.sjm-create.co.uk/bf/audio/track-02/hls.m3u8',
-  // 'http://192.168.0.13:3010/assets/audio/track-01/hls.m3u8',
-  // 'http://192.168.0.13:3010/assets/audio/track-02/hls.m3u8',
-  // 'http://192.168.0.13:3010/assets/audio/alcohol.mp3',
-  // 'http://192.168.0.13:3010/assets/audio/and.mp3',
-  // 'http://192.168.0.13:3010/assets/audio/china.mp3',
+  'https://staging.bleedingfingersmusic.com/assets/audio/test/track-01/hls.m3u8',
+  'https://staging.bleedingfingersmusic.com/assets/audio/test/track-02/hls.m3u8',
 ];
 
 function App() {
@@ -26,6 +21,7 @@ function App() {
 
   useEffect(() => {
     if (Hls.isSupported()) {
+      console.log('in hls mode');
       if (hlsNode) {
         hlsNode.destroy();
       }
