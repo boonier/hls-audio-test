@@ -39,8 +39,13 @@ function App() {
 
   useEffect(() => {
     if (started) {
-      audioNode.addEventListener('playing', () => console.log('playing'));
+      audioNode.addEventListener('playing', () =>
+        console.log('playing the asset'),
+      );
       audioNode.addEventListener('ended', () => loadNextTrack());
+      audioNode.addEventListener('progress', () =>
+        console.log('loading the asset'),
+      );
     }
     return () => {
       audioNode.addEventListener('playing', () => {});
